@@ -70,6 +70,9 @@ char suit_letter(card_t c) {
 
 
 void print_card(card_t c) {
+  if(c.value == 0 && c.suit == 0){
+    printf("?");
+  }
   printf("%c%c",value_letter(c), suit_letter(c));
 }
 

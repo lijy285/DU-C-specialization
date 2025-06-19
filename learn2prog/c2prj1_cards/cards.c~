@@ -70,7 +70,11 @@ char suit_letter(card_t c) {
 
 
 void print_card(card_t c) {
-  printf("%c%cC",value_letter(c), suit_letter(c));
+  if(c.value == 0 && c.suit == 0){
+    printf("?");
+    return;
+  }
+  printf("%c%c",value_letter(c), suit_letter(c));
 }
 
 card_t card_from_letters(char value_let, char suit_let) {

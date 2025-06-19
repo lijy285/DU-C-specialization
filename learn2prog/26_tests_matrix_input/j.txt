@@ -1,0 +1,11 @@
+ABCDEFGHIJ
+1234567890
+----------
+KLMNOPQRST
+!@#$%^&*()
+zyxwutsrqp
+abcdefghij
+++++++++++
+QRSTUVWXYZ
+pqrstuvwxy
+EOF

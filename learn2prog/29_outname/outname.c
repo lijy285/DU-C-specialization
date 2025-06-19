@@ -1,0 +1,30 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include "outname.h"
+
+char * computeOutputFileName(const char * inputName) {
+  //WRITE ME
+  const char * suffix = ".counts";
+  //caculate the total length
+  size_t len_input = strlen(inputName);
+  size_t len_suf = strlen(suffix);
+  size_t total_len = len_input + len_suf + 1;
+
+  //allocate heap memory for the outputName
+  char * outputName = malloc(total_len);
+
+  //check if the allocation success
+  if(outputName == NULL){
+    perror("Error: allocation failured.\n");
+    return NULL;
+  }
+
+  //copy the original to the outputName
+  strcpy(outputName, inputName);
+
+  //concatenate
+  strcat(outputName, suffix);
+
+  return outputName;
+}

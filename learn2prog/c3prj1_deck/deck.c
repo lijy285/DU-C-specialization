@@ -4,11 +4,29 @@
 #include "deck.h"
 
 
-void print_hand(deck_t * hand){
-  for(size_t i = 0; i<hand->n_cards; i++){
+extern int last_future_indexes[100];
+extern size_t last_hand_n_cards;
+
+void print_hand(deck_t * hand) {
+  for (size_t i = 0; i < hand->n_cards; i++) {
     print_card(*(hand->cards[i]));
     printf(" ");
   }
+  /*
+  int future_idx = 0;
+    for (size_t i = 0; i < hand->n_cards; i++) {
+        card_t *c = hand->cards[i];
+        if (c->value == 0 && c->suit == 0) {
+            printf("?%d", future_idx++);
+        } else {
+            print_card(*c);
+        }
+	if(i != hand->n_cards - 1){
+	  printf(" ");
+	}
+    }
+    printf("\n");
+  */
 }
 
 int deck_contains(deck_t * d, card_t c) {
@@ -42,3 +60,103 @@ void assert_full_deck(deck_t * d) {
   }
   assert(d->n_cards==52 && "Deck should contain 52 cards");
 }
+
+/**
+ * Dynamically add a card_t c to an existing deck_t *deck. 
+ * extend the deck->cards array (card_t **cards) with realloc by adding deck->n_cards. 
+ * New space is reserved for the newly added pointer and a copy is created. 
+ **/
+void add_card_to(deck_t * deck, card_t c){
+  assert(deck != NULL);
+  assert(deck->n_cards < 52); // Ensure we don't exceed the deck size
+  //extend the deck->cards array by one card
+  deck->cards = realloc(deck->cards, (deck->n_cards + 1)* sizeof(card_t *));
+  assert(deck->cards != NULL && "Memory allocation failed for adding card to deck");
+  //create a new card_t pointer and copy the card
+  card_t * new_card = malloc(sizeof(card_t));
+  assert(new_card != NULL && "Memory allocation failed for new card");
+  *new_card = c;
+  //add the new card to the end of the deck
+  deck->cards[deck->n_cards] = new_card;
+  //increment the number of cards in the deck
+  deck->n_cards++;
+}
+
+//add a empty card to the deck
+card_t *add_empty_card(deck_t *deck) { 
+  card_t empty;
+  empty.value = 0; // an invalid value
+  empty.suit = 0; // an invalid suit
+  add_card_to(deck, empty);
+  // Return the pointer to the newly added empty card
+  return deck->cards[deck->n_cards - 1];
+}
+/**
+ * @brief 
+ * create a new deck containing all the 52 cards but the cards in excluded_cards.
+ * @param excluded_cards 
+ * @return deck_t* 
+ */
+deck_t * make_deck_exclude(deck_t * excluded_cards){
+  //  assert(excluded_cards != NULL);
+  deck_t *new_deck = malloc(sizeof(deck_t));
+  //initialize the new deck
+  new_deck->n_cards = 0;
+  new_deck->cards = NULL;
+
+  //loop through all the cards in the deck
+
+  for(unsigned i = 0; i < 52; i++){
+    card_t c = card_from_num(i);
+    //if the card is not in the excluded_cards, add it to the new deck
+    if(!deck_contains(excluded_cards, c)) {
+      add_card_to(new_deck, c);
+    }
+  }
+  //assert that the new deck contains 52 - excluded_cards->n_cards cards
+  // assert(new_deck->n_cards == 52 - excluded_cards->n_cards && "New deck should contain 52 - excluded cards");
+  return new_deck;
+  
+}
+
+/**
+ * @brief 
+ * enter a list of hands and build a new deck containing all the cards that are not in the hands. 
+ * @param hands
+ * @param n_hands
+ * @return deck_t*
+ */
+deck_t * build_remaining_deck(deck_t **hands, size_t n_hands){
+  assert(hands != NULL && n_hands > 0);
+  deck_t all_used; // create a deck to hold all the used cards
+  all_used.n_cards = 0;
+  all_used.cards = NULL;
+  // loop through all the hands and add the cards to the all_used deck
+  for (size_t i = 0; i < n_hands; i++){
+    for (size_t j = 0; j < hands[i]->n_cards; j++){
+      add_card_to(&all_used, *(hands[i]->cards[j]));
+    }
+  } 
+  //create a new deck that contains all the cards that are not in the all_used deck
+  deck_t *remaining_deck = make_deck_exclude(&all_used);
+  //free the all_used deck
+  for (size_t i = 0; i < all_used.n_cards; i++) {
+    free(all_used.cards[i]); // free each card
+  }
+  free(all_used.cards); // free the array of card pointers
+  return remaining_deck; // return the new deck
+}
+/**
+ * @brief 
+ * free the deck and all the cards in it
+ * @param deck 
+ */
+void free_deck(deck_t * deck) {
+  if (deck == NULL) return; // check for NULL pointer
+  for (size_t i = 0; i < deck->n_cards; i++) {
+    free(deck->cards[i]); // free each card
+  }
+  free(deck->cards); // free the array of card pointers
+  free(deck); // free the deck itself
+}
+

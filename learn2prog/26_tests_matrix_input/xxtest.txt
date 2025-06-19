@@ -1,0 +1,19 @@
+m.txt
+a.txt
+b.txt
+c.txt
+d.txt
+e.txt
+f.txt
+j.txt
+h.txt z.txt
+ff.txt
+z.txt
+NONE
+NULL
+nofile.txt
+wrongfile.sh
+2_test.txt
+0_test.txt
+1_test.txt
+00.txt
