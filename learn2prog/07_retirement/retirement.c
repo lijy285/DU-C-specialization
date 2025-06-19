@@ -1,0 +1,62 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+struct _retire_info{
+  int months;
+  double contribution;
+  double rate_of_return;
+};
+
+typedef struct _retire_info retire_info;
+void phase(int *curAgeMont_ptr, double *curBalance_ptr, retire_info phaseTime);
+void retirement(int startAge,
+		double initial,
+		retire_info working,
+		retire_info retired){
+  double curBalance = initial;
+  int curAge = startAge;
+  // working time
+  phase(&curAge, &curBalance, working);
+  // after retirement
+  phase(&curAge, &curBalance, retired);
+}
+
+void phase(int *curAgeMonth_ptr,
+	   double *curBalance_ptr,
+	   retire_info phaseTime){
+  for (int i = 0; i<phaseTime.months; i++){
+    printf("Age %3d month %2d you have $%.2lf\n",
+	   *curAgeMonth_ptr/12,
+	   *curAgeMonth_ptr%12,
+	   *curBalance_ptr);
+
+   // computer the interests of every month
+	   double interest_earned = *curBalance_ptr * phaseTime.rate_of_return;
+	   // Total remaining
+	   *curBalance_ptr += interest_earned;
+	   // Add or Minus contribution every month;
+	   *curBalance_ptr += phaseTime.contribution;
+	   //become older one month
+	   (*curAgeMonth_ptr)++;
+  }
+}
+int main(void){
+  // variables in working time
+  retire_info working_info;
+  working_info.months = 489;
+  working_info.contribution = 1000.0;
+  working_info.rate_of_return = 0.045 / 12.0;
+  // variables in retired time
+  retire_info retired_info;
+  retired_info.months = 384;
+  retired_info.contribution = -4000.0;
+  retired_info.rate_of_return = 0.01 / 12.0;
+  // the initial stage
+  int startAgeMonth = 327;
+  double initial_balance = 21345.0;
+
+  retirement(startAgeMonth, initial_balance, working_info, retired_info);
+
+
+  return EXIT_SUCCESS;
+}

@@ -1,0 +1,65 @@
+Grading at Wed 28 May 2025 09:17:37 PM UTC
+**Testing broken implementation 10 **
+-------------------------------------
+
+power(2, 3) = 2, expans 8
+
+**Testing broken implementation 11 **
+-------------------------------------
+
+power(100, 1) = 4, expans 100
+
+**Testing broken implementation 1 **
+-------------------------------------
+
+power(2, 3) = 2, expans 8
+
+**Testing broken implementation 2 **
+-------------------------------------
+
+power(2, 3) = 9, expans 8
+
+**Testing broken implementation 3 **
+-------------------------------------
+
+power(0, 0) = 0, expans 1
+
+**Testing broken implementation 4 **
+-------------------------------------
+
+power(2, 16) = 0, expans 65536
+
+**Testing broken implementation 5 **
+-------------------------------------
+
+power(2, 3) = 0, expans 8
+
+**Testing broken implementation 6 **
+-------------------------------------
+
+power(3, 2) = 4, expans 9
+
+**Testing broken implementation 7 **
+-------------------------------------
+
+power(2, 3) = 27, expans 8
+
+**Testing broken implementation 8 **
+-------------------------------------
+
+power(2, 3) = 6, expans 8
+
+**Testing broken implementation 9 **
+-------------------------------------
+
+power(2, 3) = 0, expans 8
+
+**Testing correct implementation **
+-------------------------------------
+
+All tests passed!
+
+All tests were ok.
+
+
+Overall Grade: PASSED

@@ -1,0 +1,2 @@
+test: test
+	gcc -o test -std=gun99 test.c

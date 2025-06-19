@@ -1,0 +1,63 @@
+aaaaa bbbbb
+aaaaa bbbbc
+aaaaa bbbcc
+aaaaa bbccc
+aaaaa bcccc
+aaaaa abcde
+aaaaa ABCDA
+aaaaa BBBBB
+aAAaa bbbbb
+aaaQQ &^%$#
+aaa@@ $$$$q
+bbbbc aaaaa
+aaabs bbbde
+aaabc bbdee
+aaabc bcdef
+aabcd bbcde
+aabcd bcdef
+abcde fghij
+11122 33345
+KKKaa 222Bb
+ceadb ikjfg
+a_b_c_ d_e_f
+123456 33aaw
+aadewef jilskwds
+abccc defff
+ababa cdcdc
+aaaab cccc_d_
+11123 99097
+aKQKQ aJQJQ
+aaabb cde_F_G
+aabbc ddeef
+aabbc ddd_e_f
+aabbc d_e_f_g_h
+aa112 bb334
+aaaaa aaaaa     # 平局：五张相同 vs 五张相同
+aaaab aaaab     # 平局：四张相同 vs 四张相同
+aaabb dddee     # 平局：三张相同 vs 三张相同
+aabbc ddeef     # 平局：一对 vs 一对
+abcde fghij     # 平局：无匹配 vs 无匹配
+
+aaaab aaaaa     # 五张相同 vs 四张相同（颠倒顺序，胜负对调）
+aaaac bbbcc     # 四张相同 vs 三张相同
+aaabc bbcde     # 三张相同 vs 一对
+aaabc fghij     # 三张相同 vs 无匹配
+aabbc fghij     # 一对 vs 无匹配
+aaaab fghij     # 四张相同 vs 无匹配
+
+ababa ababa     # 多对花色分布平局
+abcd1 efgh2     # 包含数字和字母，无匹配
+$$$$$ %%%%%     # 特殊符号平局：五张相同 vs 五张相同
+
+AaAaA aaaaa     # 大小写混合和小写纯牌（检查大小写敏感）
+abcdE ABCDE     # 小写和大写混合牌组
+11111 22222     # 全数字五张相同对比
+
+aabbc bbaac     # 牌的顺序不同但牌型一致
+abcde abcde     # 顺序一致全不同牌
+
+aaaaa abcde     # 五张相同 vs 无匹配
+aaaaa aaabc     # 五张相同 vs 三张相同
+aaaab aaabc     # 四张相同 vs 三张相同
+aabbc aabb
+abca abcd2
